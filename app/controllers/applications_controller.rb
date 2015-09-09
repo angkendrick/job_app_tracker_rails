@@ -4,6 +4,16 @@ class ApplicationsController < ApplicationController
     @applications = Application.all
   end
 
+  def create
+    application = Application.new(application_params)
+
+    if application.save
+      render json: application
+    else
+      render json: { errors: application.errors.as_json }, status: 400
+    end
+  end
+
   private
 
   def application_params
